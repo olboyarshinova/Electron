@@ -1,4 +1,4 @@
-const {app, BrowserWindow, ipcMain, nativeTheme} = require('electron');
+const {app, BrowserWindow} = require('electron');
 const path = require('path');
 
 if (process.env.NODE_ENV === 'development') {
@@ -25,20 +25,6 @@ const createWindow = () => {
         win.webContents.openDevTools();
     }
 }
-
-ipcMain.handle('dark-mode:toggle', () => {
-    if (nativeTheme.shouldUseDarkColors) {
-        nativeTheme.themeSource = 'light';
-    } else {
-        nativeTheme.themeSource = 'dark';
-    }
-
-    return nativeTheme.shouldUseDarkColors;
-})
-
-ipcMain.handle('dark-mode:system', () => {
-    nativeTheme.themeSource = 'system';
-})
 
 app.whenReady().then(() => {
     createWindow();
